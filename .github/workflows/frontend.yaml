@@ -66,4 +66,11 @@ jobs:
       - name: Install dependencies
         run: npm ci --cache ${{ github.workspace }}/.npm --prefer-offline --no-audit
       - name: Build
-        run: npm run build
+        run: npm run build:prod
+      - name: Deploy
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/news-site
+          enable_jekyll: true

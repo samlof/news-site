@@ -1,11 +1,11 @@
 {
-  "name": "oivan-news",
-  "version": "0.0.0",
+  "name": "news-site",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --configuration production",
+    "build:prod": "ng build --configuration production --base-href https://samlof.github.io/news-site/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
