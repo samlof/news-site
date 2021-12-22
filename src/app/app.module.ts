@@ -5,16 +5,24 @@ import { InMemoryCache } from '@apollo/client/core';
 import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
+import { NewsCardComponent } from './news-card/news-card.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { ArticlePageComponent } from './article-page/article-page.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    NewsCardComponent,
+    HomePageComponent,
+    ArticlePageComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ApolloModule,
-    MatSliderModule,
+    MatCardModule,
   ],
   providers: [
     {
