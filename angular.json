@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "oivan-news": {
+    "news-site": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/oivan-news",
+            "outputPath": "dist/news-site",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,10 +70,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "oivan-news:build:production"
+              "browserTarget": "news-site:build:production"
             },
             "development": {
-              "browserTarget": "oivan-news:build:development"
+              "browserTarget": "news-site:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +81,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "oivan-news:build"
+            "browserTarget": "news-site:build"
           }
         },
         "test": {
@@ -109,7 +109,7 @@
       }
     }
   },
-  "defaultProject": "oivan-news",
+  "defaultProject": "news-site",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }

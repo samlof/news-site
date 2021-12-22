@@ -1,6 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ActivatedRoute, Data } from '@angular/router';
+import {
+  ApolloTestingModule,
+  ApolloTestingController,
+} from 'apollo-angular/testing';
+import { of } from 'rxjs';
 import { ArticlePageComponent } from './article-page.component';
+
+class MockActivatedRoute extends ActivatedRoute {
+  constructor() {
+    super();
+    this.params = of({ url: 'www.testurl.com' });
+  }
+}
 
 describe('ArticlePageComponent', () => {
   let component: ArticlePageComponent;
@@ -8,9 +20,10 @@ describe('ArticlePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ArticlePageComponent ]
-    })
-    .compileComponents();
+      declarations: [ArticlePageComponent],
+      imports: [ApolloTestingModule],
+      providers: [{ provide: ActivatedRoute, useClass: MockActivatedRoute }],
+    }).compileComponents();
   });
 
   beforeEach(() => {
