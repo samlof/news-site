@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate:
-    name: run tests and linter
+    name: Test, lint, gen
     runs-on: ubuntu-latest
 
     strategy:
@@ -22,14 +22,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Cache node modules
-        id: cache-nodemodules
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
         with:
           # caching node_modules
           path: node_modules # 👈 path for node_modules folder
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-cache-node-modules-${{ hashFiles('**/package-lock.json') }}
           # 👆 name of the chache key includes package-lock.json
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -37,14 +36,25 @@ jobs:
             ${{ runner.os }}-
       - name: Install Dependencies
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-        run: npm ci --cache ${{ github.workspace }}/.npm --prefer-offline --no-audit
+        run: npm ci
       - name: Run tests
         run: npm run test:ci
       - name: Run linter
         run: npm run lint:ci
+      - name: Run gen
+        run: npm run gen
+      - name: Validate no changes
+      - name: Check generated files
+        run: |
+          status=$(git status --porcelain)
+          if [ -n "$status" ]; then
+            echo "you need to run 'npm gen' and commit the changes."
+            echo "$status"
+            exit 1
+          fi
 
   build:
-    name: build
+    name: Build
     runs-on: ubuntu-latest
 
     strategy:
@@ -57,18 +67,68 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Cache dependencies
+      - name: Cache node modules
         uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
         with:
-          path: |
-            ${{ github.workspace }}/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json', '**/package.json') }}
-      - name: Install dependencies
-        run: npm ci --cache ${{ github.workspace }}/.npm --prefer-offline --no-audit
+          # caching node_modules
+          path: node_modules # 👈 path for node_modules folder
+          key: ${{ runner.os }}-build-cache-node-modules-${{ hashFiles('**/package-lock.json') }}
+          # 👆 name of the chache key includes package-lock.json
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install Dependencies
+        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+        run: npm ci
       - name: Build
         run: npm run build:prod
       - name: Deploy
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/news-site
+          enable_jekyll: true
+
+  deploy:
+    name: Deploy
+    # Only deploy on push to master and other jobs finishing
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    needs: [validate, build]
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # caching node_modules
+          path: node_modules # 👈 path for node_modules folder
+          key: ${{ runner.os }}-build-cache-node-modules-${{ hashFiles('**/package-lock.json') }}
+          # 👆 name of the chache key includes package-lock.json
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install Dependencies
+        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Build
+        run: npm run build:prod
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
