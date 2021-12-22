@@ -6,6 +6,7 @@ import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 import { NewsCardComponent } from './news-card/news-card.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
@@ -23,6 +24,7 @@ import { ArticlePageComponent } from './article-page/article-page.component';
     BrowserAnimationsModule,
     ApolloModule,
     MatCardModule,
+    MatListModule,
   ],
   providers: [
     {

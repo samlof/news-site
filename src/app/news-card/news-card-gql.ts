@@ -4,7 +4,8 @@ export const NewsCardFragment = gql`
   fragment NewsCardFragment on ArticleType {
     title
     url
-    content
     coverImageUrl
+    description
+    subtitle
   }
 `;

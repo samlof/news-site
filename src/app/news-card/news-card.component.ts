@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NewsCardFragment } from 'src/app/generated/graphql';
 
 @Component({
@@ -6,9 +6,12 @@ import { NewsCardFragment } from 'src/app/generated/graphql';
   templateUrl: './news-card.component.html',
   styleUrls: ['./news-card.component.scss'],
 })
-export class NewsCardComponent implements OnInit {
+export class NewsCardComponent {
   @Input() news!: NewsCardFragment;
-  constructor() {}
+  showImage = true;
 
-  ngOnInit(): void {}
+  constructor() {}
+  onImgError() {
+    this.showImage = false;
+  }
 }

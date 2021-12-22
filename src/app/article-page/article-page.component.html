@@ -1,1 +1,6 @@
-<p>article-page works!</p>
+<ng-container *ngIf="article$ | async as article; else loadingTemplate">
+  <ng-container *ngIf="!article.loading; else loadingTemplate">
+    {{ article | json }}
+  </ng-container>
+</ng-container>
+<ng-template #loadingTemplate>Loading...</ng-template>

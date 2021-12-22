@@ -4,7 +4,7 @@ import { ArticlePageComponent } from 'src/app/article-page/article-page.componen
 import { HomePageComponent } from 'src/app/home-page/home-page.component';
 
 const routes: Routes = [
-  { path: 'article', component: ArticlePageComponent },
+  { path: 'article/:url', component: ArticlePageComponent },
   { path: '', component: HomePageComponent },
   { path: '**', component: HomePageComponent },
 ];

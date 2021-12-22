@@ -1,2 +1,20 @@
-<p>home-page works!</p>
-<app-news-card></app-news-card>
+<ng-container
+  *ngIf="homepageQuery$ | async as homepageQuery; else loadTemplate"
+>
+  <ng-container *ngIf="homepageQuery.data; else noDataTemplate">
+    <a
+      matLine
+      *ngFor="let news of homepageQuery.data.articles"
+      [routerLink]="['/article/', news.url]"
+      class="list-item"
+    >
+      <app-news-card [news]="news"></app-news-card>
+    </a>
+  </ng-container>
+  <ng-container *ngIf="homepageQuery.error">
+    Got error {{ homepageQuery.error }}
+  </ng-container>
+  <ng-template #noDataTemplate>No data received from API</ng-template>
+</ng-container>
+
+<ng-template #loadTemplate>Loading news...</ng-template>

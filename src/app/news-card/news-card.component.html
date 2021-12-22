@@ -1,3 +1,11 @@
-<mat-card>
-  <mat-card-title> Simple card</mat-card-title>
+<mat-card class="card">
+  <mat-card-title>{{ news.title }}</mat-card-title>
+  <img
+    mat-card-image
+    [attr.data-src]="news.coverImageUrl"
+    *ngIf="news.coverImageUrl && showImage"
+    class="lazyload image"
+    (error)="onImgError()"
+  />
+  <mat-card-subtitle>{{ news.description }}</mat-card-subtitle>
 </mat-card>

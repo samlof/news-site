@@ -57,21 +57,50 @@ export type QueryArticlesArgs = {
   pageNumber?: InputMaybe<Scalars['Int']>;
 };
 
+export type ArticlePageQueryVariables = Exact<{
+  url: Scalars['String'];
+}>;
+
+
+export type ArticlePageQuery = { __typename?: 'Query', article: { __typename?: 'ArticleType', title?: string | null | undefined, content?: string | null | undefined, coverImageUrl?: string | null | undefined, description?: string | null | undefined } };
+
 export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HomePageQuery = { __typename?: 'Query', articles: Array<{ __typename: 'ArticleType', title?: string | null | undefined, url?: string | null | undefined, content?: string | null | undefined, coverImageUrl?: string | null | undefined }> };
+export type HomePageQuery = { __typename?: 'Query', articles: Array<{ __typename: 'ArticleType', title?: string | null | undefined, url?: string | null | undefined, coverImageUrl?: string | null | undefined, description?: string | null | undefined, subtitle?: string | null | undefined }> };
 
-export type NewsCardFragment = { __typename?: 'ArticleType', title?: string | null | undefined, url?: string | null | undefined, content?: string | null | undefined, coverImageUrl?: string | null | undefined };
+export type NewsCardFragment = { __typename?: 'ArticleType', title?: string | null | undefined, url?: string | null | undefined, coverImageUrl?: string | null | undefined, description?: string | null | undefined, subtitle?: string | null | undefined };
 
 export const NewsCardFragment = gql`
     fragment NewsCardFragment on ArticleType {
   title
   url
-  content
   coverImageUrl
+  description
+  subtitle
 }
     `;
+export const ArticlePageQueryDocument = gql`
+    query ArticlePageQuery($url: String!) {
+  article(url: $url) {
+    title
+    content
+    coverImageUrl
+    description
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class ArticlePageQueryGQL extends Apollo.Query<ArticlePageQuery, ArticlePageQueryVariables> {
+    document = ArticlePageQueryDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const HomePageQueryDocument = gql`
     query HomePageQuery {
   articles {
