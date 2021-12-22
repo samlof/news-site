@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  newsGraphqlUrl: 'https://iwa-test.herokuapp.com/graphql',
 };

@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
       useFactory: () => {
         return {
           cache: new InMemoryCache(),
-          uri: 'https://iwa-test.herokuapp.com/graphql',
+          uri: environment.newsGraphqlUrl,
         };
       },
     },
