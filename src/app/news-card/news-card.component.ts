@@ -11,6 +11,7 @@ export class NewsCardComponent {
   showImage = true;
 
   constructor() {}
+
   onImgError() {
     this.showImage = false;
   }

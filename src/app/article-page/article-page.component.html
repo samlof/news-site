@@ -1,6 +1,26 @@
-<ng-container *ngIf="article$ | async as article; else loadingTemplate">
-  <ng-container *ngIf="!article.loading; else loadingTemplate">
-    {{ article | json }}
+<ng-container *ngIf="article$ | async as articleQuery; else loadingTemplate">
+  <ng-container *ngIf="!articleQuery.loading; else loadingTemplate">
+    <ng-container
+      *ngIf="articleQuery?.data?.article as article; else notFoundTemplate"
+    >
+      <!-- Finish checks -->
+      <h2>{{ article.title }}</h2>
+      <p class="mat-caption">{{ article.description }}</p>
+      <img
+        *ngIf="article.coverImageUrl && showImage"
+        [attr.data-src]="article.coverImageUrl"
+        class="lazyload image"
+        (error)="onImgError()"
+      />
+      <div [innerHtml]="article.content"></div>
+      <!-- <code>{{ article | json }}</code> -->
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="articleQuery.error">
+    <!-- Error template -->
+    Got error {{ articleQuery.error }}
   </ng-container>
 </ng-container>
 <ng-template #loadingTemplate>Loading...</ng-template>
+<ng-template #notFoundTemplate>Article not found</ng-template>

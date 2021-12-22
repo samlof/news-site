@@ -2,6 +2,7 @@
   *ngIf="homepageQuery$ | async as homepageQuery; else loadTemplate"
 >
   <ng-container *ngIf="homepageQuery.data; else noDataTemplate">
+    <!-- Finish checks -->
     <a
       matLine
       *ngFor="let news of homepageQuery.data.articles"
@@ -12,9 +13,16 @@
     </a>
   </ng-container>
   <ng-container *ngIf="homepageQuery.error">
+    <!-- Error template -->
     Got error {{ homepageQuery.error }}
   </ng-container>
-  <ng-template #noDataTemplate>No data received from API</ng-template>
 </ng-container>
 
-<ng-template #loadTemplate>Loading news...</ng-template>
+<ng-template #noDataTemplate>
+  <!-- No data template -->
+  No data received from API</ng-template
+>
+<ng-template #loadTemplate>
+  <!-- Loading template -->
+  Loading news...</ng-template
+>

@@ -14,6 +14,8 @@ import {
 })
 export class ArticlePageComponent {
   article$: Observable<ApolloQueryResult<ArticlePageQuery | null> | null>;
+  showImage = true;
+
   constructor(
     private route: ActivatedRoute,
     private articlePageQuery: ArticlePageQueryGQL
@@ -21,11 +23,14 @@ export class ArticlePageComponent {
     this.article$ = this.route.paramMap.pipe(
       switchMap((params) => {
         const url = params.get('url');
-        console.log(url);
         if (!url) return of(null);
 
         return articlePageQuery.watch({ url }).valueChanges;
       })
     );
+  }
+
+  onImgError() {
+    this.showImage = false;
   }
 }
