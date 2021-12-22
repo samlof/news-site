@@ -4,8 +4,15 @@ import { ArticlePageComponent } from 'src/app/article-page/article-page.componen
 import { HomePageComponent } from 'src/app/home-page/home-page.component';
 
 const routes: Routes = [
-  { path: 'article/:url', component: ArticlePageComponent },
+  {
+    path: 'article/:url',
+    loadChildren: () =>
+      import('./article-page/article-page.module').then(
+        (m) => m.ArticlePageModule
+      ),
+  },
   { path: '', component: HomePageComponent },
+  { path: 'home', loadChildren: () => import('./home-page/home-page.module').then(m => m.HomePageModule) },
   { path: '**', component: HomePageComponent },
 ];
 
