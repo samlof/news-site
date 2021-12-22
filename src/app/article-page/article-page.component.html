@@ -22,5 +22,11 @@
     Got error {{ articleQuery.error }}
   </ng-container>
 </ng-container>
-<ng-template #loadingTemplate>Loading...</ng-template>
+<ng-template #loadingTemplate>
+  <mat-progress-spinner
+    color="primary"
+    mode="indeterminate"
+  ></mat-progress-spinner
+  >Loading...</ng-template
+>
 <ng-template #notFoundTemplate>Article not found</ng-template>
