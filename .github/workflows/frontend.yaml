@@ -43,7 +43,6 @@ jobs:
         run: npm run lint:ci
       - name: Run gen
         run: npm run gen
-      - name: Validate no changes
       - name: Check generated files
         run: |
           status=$(git status --porcelain)
@@ -85,13 +84,6 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build:prod
-      - name: Deploy
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/news-site
-          enable_jekyll: true
 
   deploy:
     name: Deploy
@@ -133,4 +125,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/news-site
-          enable_jekyll: true
+          enable_jekyll: false

@@ -7,7 +7,6 @@ import { NewsCardComponent } from './news-card/news-card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [HomePageComponent, NewsCardComponent],
@@ -16,7 +15,6 @@ import { MatButtonModule } from '@angular/material/button';
     HomePageRoutingModule,
     MatCardModule,
     MatListModule,
-    MatButtonModule,
     MatProgressSpinnerModule,
   ],
 })
