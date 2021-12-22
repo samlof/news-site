@@ -30,7 +30,7 @@ import { ArticlePageComponent } from './article-page/article-page.component';
       useFactory: () => {
         return {
           cache: new InMemoryCache(),
-          uri: '',
+          uri: 'https://iwa-test.herokuapp.com/graphql',
         };
       },
     },

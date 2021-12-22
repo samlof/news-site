@@ -1,0 +1,16 @@
+overwrite: true
+schema: "https://iwa-test.herokuapp.com/graphql"
+documents:
+  - "src/app/**/*.ts"
+  - "!src/app/generated/**"
+generates:
+  ./src/app/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-apollo-angular"
+      - add:
+          content: "// @ts-nocheck"
+    config:
+      dedupeOperationSuffix: true
+      omitOperationSuffix: true
