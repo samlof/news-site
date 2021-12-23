@@ -6,6 +6,11 @@
       <!-- Article content -->
       <h2>{{ article.title }}</h2>
       <p class="mat-caption">{{ article.description }}</p>
+      <div class="link-container">
+        <a [href]="article.url" *ngIf="article.url" class="link">{{
+          urlHost(article.url)
+        }}</a>
+      </div>
       <img
         *ngIf="article.coverImageUrl && showImage"
         [attr.data-src]="article.coverImageUrl"

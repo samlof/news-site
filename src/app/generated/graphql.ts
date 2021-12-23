@@ -62,7 +62,7 @@ export type ArticlePageQueryVariables = Exact<{
 }>;
 
 
-export type ArticlePageQuery = { __typename?: 'Query', article: { __typename?: 'ArticleType', title?: string | null | undefined, content?: string | null | undefined, coverImageUrl?: string | null | undefined, description?: string | null | undefined } };
+export type ArticlePageQuery = { __typename?: 'Query', article: { __typename?: 'ArticleType', title?: string | null | undefined, content?: string | null | undefined, coverImageUrl?: string | null | undefined, url?: string | null | undefined, description?: string | null | undefined } };
 
 export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -86,6 +86,7 @@ export const ArticlePageQueryDocument = gql`
     title
     content
     coverImageUrl
+    url
     description
   }
 }

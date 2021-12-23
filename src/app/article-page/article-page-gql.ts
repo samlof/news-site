@@ -6,6 +6,7 @@ gql`
       title
       content
       coverImageUrl
+      url
       description
     }
   }

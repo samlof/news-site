@@ -33,4 +33,9 @@ export class ArticlePageComponent {
   onImgError() {
     this.showImage = false;
   }
+
+  urlHost(url: string): string {
+    const u = new URL(url);
+    return u.hostname;
+  }
 }
