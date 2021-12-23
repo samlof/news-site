@@ -7,14 +7,11 @@
         class="lazyload image"
         (error)="onImgError()"
       />
-      {{ news.title }}
-      <caption class="mat-caption caption">
-        ({{
-          news.subtitle
-        }})
-      </caption></mat-card-title
+      {{ news.title }}</mat-card-title
     >
     <mat-card-content>{{ news.description }}</mat-card-content>
-    <mat-card-subtitle>{{ news.subtitle }}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="news.subtitle">{{
+      news.subtitle
+    }}</mat-card-subtitle>
   </mat-card>
 </a>
