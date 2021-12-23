@@ -4,8 +4,10 @@
       *ngIf="articleQuery?.data?.article as article; else notFoundTemplate"
     >
       <!-- Article content -->
-      <h2>{{ article.title }}</h2>
-      <p class="mat-caption">{{ article.description }}</p>
+      <h2>{{ article.title || "No title found" }}</h2>
+      <p class="mat-caption">
+        {{ article.description || "No description found" }}
+      </p>
       <div class="link-container">
         <a [href]="article.url" *ngIf="article.url" class="link">{{
           urlHost(article.url)
@@ -15,10 +17,9 @@
         *ngIf="article.coverImageUrl && showImage"
         [attr.data-src]="article.coverImageUrl"
         class="lazyload image"
-        (error)="onImgError()"
-      />
-      <div [innerHtml]="article.content"></div>
-    </ng-container>
+        (error)="onImgError()" />
+      <div [innerHtml]="article.content || 'No content found'"></div
+    ></ng-container>
   </ng-container>
 
   <ng-container *ngIf="articleQuery.error">
