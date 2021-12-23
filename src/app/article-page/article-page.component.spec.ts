@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
-  ApolloTestingModule,
   ApolloTestingController,
+  ApolloTestingModule,
 } from 'apollo-angular/testing';
 import { of } from 'rxjs';
+import { ArticlePageQueryDocument } from 'src/app/generated/graphql';
 import { ArticlePageComponent } from './article-page.component';
 
 class MockActivatedRoute extends ActivatedRoute {
@@ -17,6 +18,7 @@ class MockActivatedRoute extends ActivatedRoute {
 describe('ArticlePageComponent', () => {
   let component: ArticlePageComponent;
   let fixture: ComponentFixture<ArticlePageComponent>;
+  let controller: ApolloTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -24,12 +26,19 @@ describe('ArticlePageComponent', () => {
       imports: [ApolloTestingModule],
       providers: [{ provide: ActivatedRoute, useClass: MockActivatedRoute }],
     }).compileComponents();
+    controller = TestBed.inject(ApolloTestingController);
+  });
+
+  afterEach(() => {
+    controller.verify();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticlePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    const op = controller.expectOne(ArticlePageQueryDocument);
   });
 
   it('should create', () => {
