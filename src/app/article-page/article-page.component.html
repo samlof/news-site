@@ -3,7 +3,7 @@
     <ng-container
       *ngIf="articleQuery?.data?.article as article; else notFoundTemplate"
     >
-      <!-- Finish checks -->
+      <!-- Article content -->
       <h2>{{ article.title }}</h2>
       <p class="mat-caption">{{ article.description }}</p>
       <img
@@ -13,7 +13,6 @@
         (error)="onImgError()"
       />
       <div [innerHtml]="article.content"></div>
-      <!-- <code>{{ article | json }}</code> -->
     </ng-container>
   </ng-container>
 
@@ -22,11 +21,14 @@
     Got error {{ articleQuery.error }}
   </ng-container>
 </ng-container>
-<ng-template #loadingTemplate>
-  <mat-progress-spinner
-    color="primary"
-    mode="indeterminate"
-  ></mat-progress-spinner
+
+<ng-template #loadingTemplate
+  ><!-- Loading template -->
+  <mat-progress-spinner color="primary" mode="indeterminate">
+  </mat-progress-spinner
   >Loading...</ng-template
 >
-<ng-template #notFoundTemplate>Article not found</ng-template>
+<ng-template #notFoundTemplate>
+  <!-- Not found template -->
+  Article not found</ng-template
+>

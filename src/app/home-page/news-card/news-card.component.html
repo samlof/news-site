@@ -1,19 +1,20 @@
-<mat-card class="card">
-  <mat-card-title
-    >{{ news.title }}
-    <caption class="mat-caption caption">
-      ({{
-        news.subtitle
-      }})
-    </caption></mat-card-title
-  >
-  <img
-    mat-card-image
-    [attr.data-src]="news.coverImageUrl"
-    *ngIf="news.coverImageUrl && showImage"
-    class="lazyload image"
-    (error)="onImgError()"
-  />
-  <mat-card-content>{{ news.description }}</mat-card-content>
-  <mat-card-subtitle>{{ news.subtitle }}</mat-card-subtitle>
-</mat-card>
+<a [routerLink]="['/article/', news.url]" class="list-item">
+  <mat-card class="card">
+    <mat-card-title>
+      <img
+        [attr.data-src]="news.coverImageUrl"
+        *ngIf="news.coverImageUrl && showImage"
+        class="lazyload image"
+        (error)="onImgError()"
+      />
+      {{ news.title }}
+      <caption class="mat-caption caption">
+        ({{
+          news.subtitle
+        }})
+      </caption></mat-card-title
+    >
+    <mat-card-content>{{ news.description }}</mat-card-content>
+    <mat-card-subtitle>{{ news.subtitle }}</mat-card-subtitle>
+  </mat-card>
+</a>

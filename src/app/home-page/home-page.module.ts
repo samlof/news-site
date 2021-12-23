@@ -5,7 +5,6 @@ import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePageComponent } from './home-page.component';
 import { NewsCardComponent } from './news-card/news-card.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CommonModule,
     HomePageRoutingModule,
     MatCardModule,
-    MatListModule,
     MatProgressSpinnerModule,
   ],
 })
